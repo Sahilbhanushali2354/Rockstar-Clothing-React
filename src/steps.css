@@ -1,0 +1,7 @@
+.custom-steps .ant-steps-item .active-step {
+  color: lightcyan;
+}
+
+.custom-steps .ant-steps-item-finish .active-step {
+  color: darkcyan;
+}
