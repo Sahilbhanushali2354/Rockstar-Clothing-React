@@ -1,4 +1,3 @@
-"use client";
 import { useEffect, useState } from "react";
 import { doc, getDoc, collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL, getStorage } from "firebase/storage";
@@ -160,7 +159,7 @@ const AddProduct = () => {
     }
 
     return (
-        <Spin className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black p-10 text-white" spinning={loading}>
+        <Spin spinning={loading} className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black p-10 text-white">
             <div className="max-w-3xl mx-auto bg-gray-800 rounded-lg shadow-lg p-8">
                 <div className="flex items-center gap-4">
                     <ArrowLeftOutlined

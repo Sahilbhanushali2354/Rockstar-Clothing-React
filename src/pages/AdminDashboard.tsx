@@ -1,10 +1,11 @@
 import { Spin } from "antd";
+// import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const AdminDashboard = () => {
-
+    // const [loader, setLoader] = useState(false)
     return (
-        <Spin className="w-full h-[100vh]">
+        <Spin spinning={false} className="w-full h-[100vh]">
 
             <div className="w-full min-h-screen bg-gray-900 text-white p-10">
                 <h1 className="text-4xl font-bold text-center mb-10">Admin Dashboard</h1>

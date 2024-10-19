@@ -3,12 +3,16 @@
 import { auth, FStore } from "../common/config/firebase/firebase.config";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
-import { Spin } from "antd";
+
+type OutletContextType = { setLoader: (state: boolean) => void };
+
 
 const LoginPage: React.FC = () => {
-    const [loader, setLoader] = useState<boolean>(false);
+    // const [loader, setLoader] = useState<boolean>(false);
+    const { setLoader } = useOutletContext<OutletContextType>();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
@@ -16,7 +20,10 @@ const LoginPage: React.FC = () => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) navigate("/");
+            if (user) {
+                setLoader(false)
+                navigate("/");
+            }
         });
         return unsubscribe;
     }, [navigate]);
@@ -40,6 +47,7 @@ const LoginPage: React.FC = () => {
         }
 
         try {
+            setLoader(true)
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
@@ -47,25 +55,23 @@ const LoginPage: React.FC = () => {
             const userDoc = await getDoc(doc(FStore, "users", user.uid));
             if (userDoc.exists()) {
                 const userData = userDoc.data();
-                console.log('--------userData', userData)
-                // Store the entire user data in localStorage
+                console.log('--------userData', userData);
                 localStorage.setItem("auth", JSON.stringify(userData));
-
-                // Navigate based on role
+                setLoader(false)
                 navigate(userData.role === "admin" ? "/admin" : "/");
             } else {
+                setLoader(false)
                 setErrors({ email: "User not found in database." });
             }
         } catch (error: any) {
+            setLoader(false)
             setErrors({ email: error.message });
-        } finally {
-            setLoader(false);
         }
     };
 
     return (
-        <Spin spinning={loader}>
-            <form onSubmit={handleSubmit}>
+        <div>
+            <form onSubmit={handleSubmit} className="w-full max-w-md p-8 bg-gray-800 rounded-lg shadow-lg">
                 <div className="mb-8">
                     <label className="block text-sm text-gray-400 mb-2">Email</label>
                     <input
@@ -106,7 +112,7 @@ const LoginPage: React.FC = () => {
                     Sign Up
                 </Link>
             </p>
-        </Spin>
+        </div>
     );
 };
 

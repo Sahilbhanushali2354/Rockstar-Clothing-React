@@ -7,6 +7,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../common/config/firebase/firebase.config';
 
 const MainLayout = () => {
+  // const [loader, setLoader] = useState(false)
   const navigate = useNavigate()
   useEffect(() => {
     const x = onAuthStateChanged(auth, (user) => {
@@ -19,9 +20,9 @@ const MainLayout = () => {
   }, [navigate]);
   return (
 
-    <Spin className="w-full min-h-screen bg-gradient-to-r from-gray-800 via-gray-700 to-gray-900 text-white">
+    <Spin spinning={false} className="w-full min-h-screen bg-gradient-to-r from-gray-800 via-gray-700 to-gray-900 text-white">
       {/* Navbar */}
-      <Navbar/>
+      <Navbar />
 
       {/* Hero Section */}
       <div className='w-full bg-gradient-to-r from-gray-800 via-gray-700 to-gray-900'>

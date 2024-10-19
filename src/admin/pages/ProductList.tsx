@@ -215,7 +215,7 @@ const CategoryPage = () => {
                                     description={
                                         <>
                                             <p className="text-gray-400 text-sm sm:text-base">
-                                                Price: ${item.price.toFixed(2)}
+                                                Price: Rs. {item.price}
                                             </p>
                                             <p className="text-gray-400 text-sm sm:text-base">
                                                 Subcategory: {item.subcategory}

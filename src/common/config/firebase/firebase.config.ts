@@ -1,6 +1,5 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -12,7 +11,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyAvzUyJhgr5ur2GCufPoUxVoe1xJRmgLsk",
   authDomain: "rockstar-clothing-859c4.firebaseapp.com",
   projectId: "rockstar-clothing-859c4",
-  storageBucket: "rockstar-clothing-859c4.appspot.com", 
+  storageBucket: "rockstar-clothing-859c4.appspot.com",
   messagingSenderId: "89378510531",
   appId: "1:89378510531:web:1ad1c0919f77f1caec3476",
   measurementId: "G-64X05KEG1Z",
@@ -22,6 +21,5 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 export const FStore = getFirestore(app);
 export const auth = getAuth(app);
